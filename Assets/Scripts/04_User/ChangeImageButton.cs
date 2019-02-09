@@ -5,8 +5,18 @@ using UnityEngine;
 
 public class ChangeImageButton : MonoBehaviour {
 
+    /* VARIABLE ATRIBUTO REFERENCIA DEL GAMECONTROLLER DE LA ESCENA */
     public GameController04 gameController;
 
+
+
+    /* ################################### METODO DEL EVENTO DE CLICK AL BOTON EN LA IMAGEN DE PERFIL ################################### */
+
+    /// <summary> #####################################################################################
+    ///         Este metodo pregunta si la aplicacion es el editor o si ya es una aplicacion creada para alguna plataforma de sistema operativo
+    ///         segun el caso utiliza el panel de selector de archivos por defecto para el editor de unity o el FileBrowserAndroid, ambos
+    ///         con funcionalidad de obtener el path de un archivo seleccionado y ejecutar un metodo con ese path
+    /// </summary>  
     public void ModifyCurrentImageUser()
     {
         if (Application.isEditor)
@@ -21,6 +31,16 @@ public class ChangeImageButton : MonoBehaviour {
     }
 
 
+
+
+
+    /* ################################### METODO PARA CONSTRUIR UNA IMAGEN DE PERFIL APARTIR DE SU PATH ################################### */
+
+
+    /// <summary> #####################################################################################
+    ///         Metodo que es llamado desde cualquiera de los FileBrowsers, que recibe un path y si no es nulo entonces construye un sprite
+    ///         para asignarselo a la imagen de perfil y guardarlo en el servidor con un request.
+    /// </summary>  
     private int BuildImage(string path)
     {
         if (path.Length > 0)
@@ -43,6 +63,8 @@ public class ChangeImageButton : MonoBehaviour {
     }
 
 
+
+    /* ################################ METODO PARA GENERAR UNA TEXTURA APARTIR DE LOS BYTES DE UNA IMAGEN ################################ */
 
     private Texture2D GenerateImage(byte[] img)
     {        

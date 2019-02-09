@@ -6,18 +6,24 @@ using UnityEngine.UI;
 
 public class GameController05 : MonoBehaviour {
 
+    /* VARIABLES ATRIBUTOS QUE VIENEN DEL INSPECTOR */
     public Canvas canvas;
     public GameObject mediaContentsBody;
     public GameObject imageMediaContent;
     public GameObject videoMediaContent;
 
+    /* VARIABLES ATRIBUTOS DE CALCULOS */
     private float width;
     private float x_count;
     private float y_count;
     private float MAX_LIMIT_WIDTH;
 
+    /* VARIABLES ATRIBUTOS COMPONENTES OBJETOS */
     private NetworkController networkController;
     private FilePanel filePanel;
+
+
+    /* ################################### INICIALIZACIÓN ################################### */
 
     private void Awake()
     {
@@ -27,14 +33,25 @@ public class GameController05 : MonoBehaviour {
     }
 
     private void Start()
-    {
-        
+    {        
         width = (imageMediaContent.GetComponent<RectTransform>().rect.width + 10f) * canvas.scaleFactor;
         x_count = 0f;
         y_count = 0f;
-    
+
+        foreach (GameObject video in this.networkController.GetPersistentObjects().GetUser().mediaContentsVideos)
+        {
+            video.transform.GetChild(1).GetComponent<DestroyContentButton>().FindAndSetGameController();
+        }
+
         FillMediaContent();
     }
+
+
+
+
+
+
+    /* ########################## ITERAR TODOS LOS CONTENIDOS MEDIA DE IMAGENES Y VIDEO Y AÑADIRLOS A LA ESCENA ########################## */
 
     public void FillMediaContent()
     {
@@ -43,30 +60,26 @@ public class GameController05 : MonoBehaviour {
         foreach (Sprite image in this.networkController.GetPersistentObjects().GetUser().mediaContentsImages)
         {
             GameObject mediaImage = InstantianteMediaContentComponent(imageMediaContent, (width * x_count), (width * y_count));
-
-            mediaImage.GetComponent<MediaContent>().SetAsociatedPath(this.networkController.GetPersistentObjects().GetMediaContentsImagePathOrder(index));
-
+            mediaImage.GetComponent<MediaContent>().SetAssociatedPathAndIndex(this.networkController.GetPersistentObjects().GetMediaContentsImagePathOrder(index),index);
             ConfigureMediaContentImage(mediaImage, image);
-
             UpdateMediaContentCoordinates(mediaImage);
-
             ++index;
-
         }
+        
+        index = 0;
 
-        var netURLS = this.networkController.GetUrls();
-
-        foreach (string path in this.networkController.GetPersistentObjects().GetUser().mediaContentsVideosURLS)
-        {
-            GameObject mediaVideo = InstantianteMediaContentComponent(videoMediaContent, (width * x_count), (width * y_count));
-
-            mediaVideo.GetComponent<MediaContent>().SetAsociatedPath(path);
-
-            mediaVideo.GetComponent<VideoMediaContent>().ConfigureVideoPlayer(netURLS.GetMainDomain() + netURLS.GET_USER_MEDIA_CONTENTS + "?path=" + path);
-
-            UpdateMediaContentCoordinates(mediaVideo);
+        foreach (GameObject video in this.networkController.GetPersistentObjects().GetUser().mediaContentsVideos)
+        {            
+            video.GetComponent<MediaContent>().SetAssociatedIndex(index);
+            ConfigureMediaVideo(video, (width * x_count), (width * y_count));
+            ++index;
         }
     }
+
+
+
+
+    /* ####################   METODOS PARA INSTANCIAR COMPONENTES MEDIA DE IMAGEN O VIDEO   ####################*/
 
     public GameObject InstantianteMediaContentComponent(GameObject prefab, float offsetx, float offsety)
     {
@@ -76,12 +89,47 @@ public class GameController05 : MonoBehaviour {
         return mediaObject;
     }
 
+    public GameObject InstantianteMediaVideoComponent(GameObject prefab, float offsetx, float offsety)
+    {
+        GameObject mediaObject = Instantiate(prefab, mediaContentsBody.transform, false);
+        mediaObject.GetComponent<RectTransform>().anchoredPosition3D = imageMediaContent.GetComponent<RectTransform>().anchoredPosition3D;
+        RectTransform videoRect = mediaObject.GetComponent<RectTransform>();
+        videoRect.anchoredPosition3D = new Vector3(videoRect.anchoredPosition3D.x + offsetx, videoRect.anchoredPosition3D.y - offsety, videoRect.anchoredPosition3D.z);
+        videoRect.localRotation = Quaternion.identity;
+        videoRect.localScale = Vector3.one;
+        return mediaObject;
+    }
+
+
+
+
+
+
+    /* ####################  METODOS PARA CONFIGURAR LAS IMAGENES O VIDEOS QUE ESTARAN EN LA ESCENA ####################*/
+
+    public void ConfigureMediaVideo(GameObject video, float offsetx, float offsety)
+    {        
+        video.transform.SetParent(mediaContentsBody.transform);
+        video.GetComponent<RectTransform>().anchoredPosition3D = imageMediaContent.GetComponent<RectTransform>().anchoredPosition3D;
+        RectTransform videoRect = video.GetComponent<RectTransform>();        
+        videoRect.anchoredPosition3D = new Vector3(videoRect.anchoredPosition3D.x + offsetx, videoRect.anchoredPosition3D.y - offsety, videoRect.anchoredPosition3D.z);
+        UpdateMediaContentCoordinates(video);
+    }
+
     public void ConfigureMediaContentImage(GameObject mediaImage, Sprite image)
     {
         Image imageObject = mediaImage.transform.GetChild(0).GetComponent<Image>();
         imageObject.preserveAspect = true;
         imageObject.sprite = image;
     }
+
+
+
+
+
+
+
+    /* #################### ACTUALIZADO Y BORRADO DE LAS VARIABLES QUE MANEJAN LA DISPOSICION DE REJILLA EN LA ESCENA #################### */
 
     public void UpdateMediaContentCoordinates(GameObject mediaImage)
     {
@@ -102,9 +150,16 @@ public class GameController05 : MonoBehaviour {
 
         foreach (Transform child in mediaContentsBody.transform)
         {
+            if (child.gameObject.tag == "Video")
+                continue;
             GameObject.Destroy(child.gameObject);
         }
     }
+
+
+
+
+    /* ################################### Metodos exclusivos del GameController05 ################################### */
 
     public float GetMedConOffsetX()
     {
@@ -138,6 +193,16 @@ public class GameController05 : MonoBehaviour {
 
     public void LoadSceneByName(string scene)
     {
+        TransformVideosInPersistents();
         SceneManager.LoadScene(scene);
+    }
+    
+    private void TransformVideosInPersistents()
+    {
+        foreach(GameObject video in this.networkController.GetPersistentObjects().GetUser().mediaContentsVideos)
+        {
+            video.transform.SetParent(null);
+            DontDestroyOnLoad(video);
+        }
     }
 }

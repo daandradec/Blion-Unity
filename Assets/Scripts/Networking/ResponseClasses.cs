@@ -29,6 +29,6 @@ namespace Assets.Scripts.Networking
         public string[] mediaContentsURLS;
         public List<Sprite> mediaContentsImages;
         public List<string> mediaContentsImagesPathsOrder;
-        public List<string> mediaContentsVideosURLS;
+        public List<GameObject> mediaContentsVideos;
     }
 }

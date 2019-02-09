@@ -5,10 +5,16 @@ using UnityEngine;
 
 public class FilePanel : MonoBehaviour {
 
+    /* VARIABLE ATRIBUTO REFERENCIA DEL COMPONENTE DEL FILEBROWSERANDROID */
     public OpenFileBrowserAndroid openFileManager;
+
+    /* VARIABLE ATRIBUTO REFERENCIA DEL FILEMANAGER EN LA ESCENA */
     public FileManager fileManager;
 
-	public string SearchImage()
+
+
+    /* ################## METODO PARA BUSCAR UN ARCHIVO USANDO EL PANEL DE BUSQUEDA DE ARCHIVOS POR DEFECTO DE UNITY ################## */
+    public string SearchImage()
     {
         #if UNITY_EDITOR
         return UnityEditor.EditorUtility.OpenFilePanel("Select an image", "", "png,jpg,jpeg,mp4");
@@ -17,6 +23,7 @@ public class FilePanel : MonoBehaviour {
 #endif
     }
 
+    /* ################## METODO PARA BUSCAR UN ARCHIVO USANDO EL ASSET DEL FILEBROWSERANDROID (PROPIO) ################## */
     public void SearchImageWithFileManager(Func<string, int> Method)
     {
         fileManager.SetExecuteFunction(Method);

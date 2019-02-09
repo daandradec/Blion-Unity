@@ -5,13 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
+    /* VARIABLES REFERENCIA GAMEOBJECTS */
     public GameObject playerShip_1;
     public GameObject playerShip_2;
-    
-    public void LoadSceneByName(string scene)
-    {
-        SceneManager.LoadScene(scene);
-    }
+
+    /* ################################### INICIALIZACIÓN ################################### */
 
     private void Start()
     {
@@ -21,4 +19,13 @@ public class GameController : MonoBehaviour {
             Destroy(netObject);
         }
     }
+
+
+    /* ################################### Metodos exclusivos del GameController ################################### */
+
+    public void LoadSceneByName(string scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
+
 }

@@ -59,7 +59,7 @@ public class PostRequestImage : MonoBehaviour {
 
 
 
-    /*  ************************************************  */
+    /*  ************************************************ ANTIGUA MANERA DE HACER LA PETICION -- NO BORRAR AUN */
 
 
     public void MakePostRequest(byte[] image, string url)

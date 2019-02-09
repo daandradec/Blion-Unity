@@ -10,7 +10,12 @@ public class DestroyContentButton : MonoBehaviour {
 
     private void Awake()
     {
-        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController05>();    
+        FindAndSetGameController();
+    }
+
+    public void FindAndSetGameController()
+    {
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController05>();
     }
 
     public void DestroyContent()
@@ -28,14 +33,19 @@ public class DestroyContentButton : MonoBehaviour {
         string[] image_extensions = { ".png", ".jpg", ".jpeg" };
         if (image_extensions.Contains(Path.GetExtension(file_path)))
         {
-            int index = netController.GetPersistentObjects().GetIndexMediaContentImage(file_path);
+            //int index = netController.GetPersistentObjects().GetIndexMediaContentImage(file_path);
+            int index = this.transform.parent.gameObject.GetComponent<MediaContent>().GetIndexOnList();
 
             netController.GetPersistentObjects().RemoveItemMediaContentsImage(index);
             netController.GetPersistentObjects().RemoveItemMediaContentsImagePathOrder(index);
         }
         else
         {
-            netController.GetPersistentObjects().RemoveItemMediaContentsVideo(file_path);
+            //netController.GetPersistentObjects().RemoveItemMediaContentsVideo(file_path);
+            int index = this.transform.parent.gameObject.GetComponent<MediaContent>().GetIndexOnList();
+            GameObject video = netController.GetPersistentObjects().GetMediaContentsVideo(index);
+            netController.GetPersistentObjects().RemoveItemMediaContentsVideo(index);
+            Destroy(video.gameObject);
         }
 
 

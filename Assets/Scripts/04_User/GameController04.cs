@@ -7,11 +7,22 @@ using UnityEngine.UI;
 
 public class GameController04 : MonoBehaviour {
 
+    /* VARIABLE ATRIBUTO CONTROLADOR DE REDES */
     private NetworkController networkController;
+
+    /* VARIABLE ATRIBUTO PANEL DE ARCHIVOS */
     private FilePanel filePanel;
 
+    /* VARIABLE ATRIBUTO REFERENCIA A LA IMAGEN EN LA ESCENA DE LA FOTO DE PERFIL DEL USUARIO */
     public Image userImage;
+
+    /* VARIABLE ATRIBUTO REFERENCIA DEL TEXTO QUE MUESTRA EL EMAIL (TEXTO DE TIPO TEXTMESHPRO) */
     public TextMeshProUGUI textField;
+
+
+
+
+    /* ################################### INICIALIZACIÓN ################################### */
 
     private void Awake()
     {
@@ -25,6 +36,12 @@ public class GameController04 : MonoBehaviour {
         userImage.sprite = networkController.GetPersistentObjects().GetUser().image;
         userImage.preserveAspect = true;
     }
+
+
+
+
+
+    /* ################################### Metodos exclusivos del GameController04 ################################### */
 
     public NetworkController GetNetworkController()
     {
