@@ -21,12 +21,12 @@ public class ChangeImageButton : MonoBehaviour {
     {
         if (Application.isEditor)
         {
-            string path = gameController.GetFilePanel().SearchImage();
+            string path = gameController.GetFilePanel().SearchFile();
             BuildImage(path);            
         }
         else
         {
-            gameController.GetFilePanel().SearchImageWithFileManager(BuildImage);
+            gameController.GetFilePanel().SearchFileWithFileManager(BuildImage);
         }                
     }
 

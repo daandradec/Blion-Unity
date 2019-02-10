@@ -85,18 +85,18 @@ public class GameController05 : MonoBehaviour {
     {
         GameObject mediaObject = Instantiate(prefab, mediaContentsBody.transform, false);
         RectTransform imageRect = mediaObject.GetComponent<RectTransform>();
-        imageRect.anchoredPosition3D = new Vector3(imageRect.anchoredPosition3D.x + offsetx, imageRect.anchoredPosition3D.y - offsety, imageRect.anchoredPosition3D.z);
+        imageRect.anchoredPosition3D = new Vector3(imageRect.anchoredPosition3D.x + offsetx, imageRect.anchoredPosition3D.y - offsety, imageRect.anchoredPosition3D.z); // anchored position es el vector de coordenadas3D en el RectTransform
         return mediaObject;
     }
 
     public GameObject InstantianteMediaVideoComponent(GameObject prefab, float offsetx, float offsety)
     {
         GameObject mediaObject = Instantiate(prefab, mediaContentsBody.transform, false);
-        mediaObject.GetComponent<RectTransform>().anchoredPosition3D = imageMediaContent.GetComponent<RectTransform>().anchoredPosition3D;
+        mediaObject.GetComponent<RectTransform>().anchoredPosition3D = imageMediaContent.GetComponent<RectTransform>().anchoredPosition3D; // como al volverlo hijo del mediaBody del canvas sus coordenadas cambian entonces se las reinicio a las que utiliza el contenedor de imagenes
         RectTransform videoRect = mediaObject.GetComponent<RectTransform>();
         videoRect.anchoredPosition3D = new Vector3(videoRect.anchoredPosition3D.x + offsetx, videoRect.anchoredPosition3D.y - offsety, videoRect.anchoredPosition3D.z);
-        videoRect.localRotation = Quaternion.identity;
-        videoRect.localScale = Vector3.one;
+        videoRect.localRotation = Quaternion.identity; // reiniciar rotacion (se modificaba por causa de volverlo hijo del mediaBody)
+        videoRect.localScale = Vector3.one; // reiniciar escala (se modificaba por causa de volverlo hijo del mediaBody)
         return mediaObject;
     }
 
@@ -110,7 +110,7 @@ public class GameController05 : MonoBehaviour {
     public void ConfigureMediaVideo(GameObject video, float offsetx, float offsety)
     {        
         video.transform.SetParent(mediaContentsBody.transform);
-        video.GetComponent<RectTransform>().anchoredPosition3D = imageMediaContent.GetComponent<RectTransform>().anchoredPosition3D;
+        video.GetComponent<RectTransform>().anchoredPosition3D = imageMediaContent.GetComponent<RectTransform>().anchoredPosition3D; // como al volverlo hijo del mediaBody del canvas sus coordenadas cambian entonces se las reinicio a las que utiliza el contenedor de imagenes
         RectTransform videoRect = video.GetComponent<RectTransform>();        
         videoRect.anchoredPosition3D = new Vector3(videoRect.anchoredPosition3D.x + offsetx, videoRect.anchoredPosition3D.y - offsety, videoRect.anchoredPosition3D.z);
         UpdateMediaContentCoordinates(video);

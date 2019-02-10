@@ -24,12 +24,12 @@ public class AddContentButton : MonoBehaviour {
     {
         if (Application.isEditor)
         {
-            string path = gameController.GetFilePanel().SearchImage();
+            string path = gameController.GetFilePanel().SearchFile();
             BuildMedia(path);
         }
         else
         {
-            gameController.GetFilePanel().SearchImageWithFileManager(BuildMedia);
+            gameController.GetFilePanel().SearchFileWithFileManager(BuildMedia);
 
         }
     }
