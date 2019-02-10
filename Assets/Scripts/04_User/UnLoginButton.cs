@@ -14,9 +14,16 @@ public class UnLoginButton : MonoBehaviour {
 
     public void UnLogin()
     {
+        DestroyPersistentVideos();
         gameController.LoadSceneByName("01_Login");
     }
 
-
+    private void DestroyPersistentVideos()
+    {
+        foreach (GameObject video in this.gameController.GetNetworkController().GetPersistentObjects().GetUser().mediaContentsVideos)
+        {
+            Destroy(video);
+        }
+    }
 
 }

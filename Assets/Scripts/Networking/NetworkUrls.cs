@@ -6,7 +6,7 @@ public class NetworkUrls : MonoBehaviour {
 
     private string DOMAIN = "http://aqueous-tor-84195.herokuapp.com";/** http://blion.test **/
 
-    /* APIS URLS */
+    /* APIS URLS */ /* Recordar que toca tambien modificarlos en el inspector en el objeto NetworkController */
     public string GET_USER = "/api/users/";
     public string GET_USER_IMAGE = "/image";
     public string GET_USER_CONTENTS = "/contents";

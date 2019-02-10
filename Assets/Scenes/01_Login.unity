@@ -2359,7 +2359,7 @@ MonoBehaviour:
   GET_USER: /api/users/
   GET_USER_IMAGE: /image
   GET_USER_CONTENTS: /contents
-  GET_USER_MEDIA_CONTENTS: /api/users/mediacontent/media
+  GET_USER_MEDIA_CONTENTS: /mediacontent/media
   POST_USER: /api/users/
   POST_USER_IMAGE: /image
   POST_USER_MEDIA_CONTENTS: /mediacontent/media

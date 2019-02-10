@@ -122,10 +122,10 @@ public class GameController03 : MonoBehaviour {
         var netURLS = this.networkController.GetUrls();
         List<string> images_urls = new List<string>();
         UserResponse user = this.networkController.GetPersistentObjects().GetUser();
-        Debug.Log(netURLS.GET_USER_MEDIA_CONTENTS);
+
         foreach (string url in mediaContentsURLS)
         {
-            Debug.Log(url);
+
             if (image_extensions.Contains(Path.GetExtension(url)))
                 images_urls.Add(url);
             else
