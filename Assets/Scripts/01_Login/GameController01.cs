@@ -13,9 +13,8 @@ public class GameController01 : MonoBehaviour {
 
     private void Awake()
     {
-        this.networkController = GameObject.FindGameObjectWithTag("NetworkController").GetComponent<NetworkController>();
+        this.networkController = GameObject.FindGameObjectWithTag("NetworkController").GetComponent<NetworkController>();       
     }
-
 
 
     /* ################################### Metodos exclusivos del GameController01 ################################### */

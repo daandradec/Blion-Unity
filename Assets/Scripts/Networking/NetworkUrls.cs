@@ -10,11 +10,12 @@ public class NetworkUrls : MonoBehaviour {
     public string GET_USER = "/api/users/";
     public string GET_USER_IMAGE = "/image";
     public string GET_USER_CONTENTS = "/contents";
-    public string GET_USER_MEDIA_CONTENTS = "/api/users/mediacontent/media";
+    public string GET_USER_MEDIA_CONTENTS = "/mediacontent/media";
     public string POST_USER = "/api/users/";
     public string POST_USER_IMAGE = "/image";
     public string POST_USER_MEDIA_CONTENTS = "/mediacontent/media";
     public string POST_USER_DESTROY_MEDIA_CONTENT = "/mediacontent/destroy";
+    
 
     public string POST_LOGIN_API = "/api/login";
     public string POST_REGISTER_API = "/api/register";

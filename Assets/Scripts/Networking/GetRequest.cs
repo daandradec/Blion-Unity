@@ -9,7 +9,7 @@ public class GetRequest : MonoBehaviour {
 
     public void MakeGetRequestMethod(Func<string, int> Method, string url) { StartCoroutine( GetRequestMethod(Method, url) ); }
 
-	public void MakeGetRequest() { StartCoroutine(GetRequestSimple()); }
+	//public void MakeGetRequest() { StartCoroutine(GetRequestSimple()); }
 
     IEnumerator GetRequestMethod(Func<string, int> Method, string url)
     {
@@ -32,9 +32,9 @@ public class GetRequest : MonoBehaviour {
             }
         }
     }
-
+    /*
     IEnumerator GetRequestSimple()
     {
         yield return 1;
-    }
+    }*/
 }

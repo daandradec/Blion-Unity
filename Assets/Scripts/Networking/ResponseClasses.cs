@@ -25,6 +25,8 @@ namespace Assets.Scripts.Networking
         public string email;
         public string name;
         public string email_verified_at;
+        public string auth_token;
+        public string expired_date_token;
         public Sprite image;
         public string[] mediaContentsURLS;
         public List<Sprite> mediaContentsImages;
