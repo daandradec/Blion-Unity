@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Networking;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -48,14 +49,16 @@ public class ChangeImageButton : MonoBehaviour {
             byte[] img = File.ReadAllBytes(path);
             var netController = gameController.GetNetworkController();
             var netURLS = netController.GetUrls();
+            UserResponse user = netController.GetPersistentObjects().GetUser();
 
             Texture2D texture = GenerateImage(img);
             Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero, 1f);
             netController.GetPersistentObjects().SetImageToCurrentUser(sprite);
             gameController.userImage.sprite = sprite;
+            
 
             netController.PostRequestImageBytes(img, 
-                netURLS.GetMainDomain() + netURLS.POST_USER + netController.GetPersistentObjects().GetUser().id + netURLS.POST_USER_IMAGE,
+                netURLS.GetMainDomain() + netURLS.POST_USER + user.id + "/" + user.auth_token + netURLS.POST_USER_IMAGE,
                 Path.GetExtension(path).Substring(1));
 
         }

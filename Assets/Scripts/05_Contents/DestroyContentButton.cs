@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Networking;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -35,11 +36,12 @@ public class DestroyContentButton : MonoBehaviour {
     {
         var netController = gameController.GetNetworkController();
         var netURLS = netController.GetUrls();
+        UserResponse user = netController.GetPersistentObjects().GetUser();
         string file_path = this.transform.parent.gameObject.GetComponent<MediaContent>().GetAsociatedPath();
 
         string[] keys = { "path"};
         string[] values = { file_path };
-        string url = netURLS.GetMainDomain() + netURLS.POST_USER + gameController.GetNetworkController().GetPersistentObjects().GetUser().id + 
+        string url = netURLS.GetMainDomain() + netURLS.POST_USER + user.id + "/" + user.auth_token +
             netURLS.POST_USER_DESTROY_MEDIA_CONTENT;
 
 
