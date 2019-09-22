@@ -58,7 +58,7 @@ public class ChangeImageButton : MonoBehaviour {
             
 
             netController.PostRequestImageBytes(img, 
-                netURLS.GetMainDomain() + netURLS.POST_USER + user.id + "/" + user.auth_token + netURLS.POST_USER_IMAGE,
+                netURLS.GetMainDomain() + netURLS.POST_USER + user.id + netURLS.POST_USER_IMAGE,
                 Path.GetExtension(path).Substring(1));
 
         }

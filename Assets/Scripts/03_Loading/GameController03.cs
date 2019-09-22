@@ -49,7 +49,7 @@ public class GameController03 : MonoBehaviour {
     {
         var netURLS = this.networkController.GetUrls();
         UserResponse user = this.networkController.GetPersistentObjects().GetUser();
-        this.networkController.GetRequestTexture(RequireImage, netURLS.GetMainDomain() + netURLS.GET_USER + user.id + "/" + user.auth_token + netURLS.GET_USER_IMAGE);        
+        this.networkController.GetRequestTexture(RequireImage, netURLS.GetMainDomain() + netURLS.GET_USER + user.id + netURLS.GET_USER_IMAGE);        
     }
 
 
@@ -79,7 +79,7 @@ public class GameController03 : MonoBehaviour {
     {
         var netURLS = this.networkController.GetUrls();
         UserResponse user = this.networkController.GetPersistentObjects().GetUser();
-        this.networkController.GetRequest(RequireMediaContentsUser, netURLS.GetMainDomain() + netURLS.GET_USER + user.id + "/" + user.auth_token + netURLS.GET_USER_CONTENTS);
+        this.networkController.GetRequest(RequireMediaContentsUser, netURLS.GetMainDomain() + netURLS.GET_USER + user.id + netURLS.GET_USER_CONTENTS);
     }
 
 
@@ -136,7 +136,7 @@ public class GameController03 : MonoBehaviour {
         
         foreach (string url_image in images_urls)
         {
-            this.networkController.GetRequestTextureAlpha(RequireMediaContentImage, netURLS.GetMainDomain() + netURLS.GET_USER + user.id + "/" + user.auth_token + netURLS.GET_USER_MEDIA_CONTENTS + "?path=" + url_image, url_image);
+            this.networkController.GetRequestTextureAlpha(RequireMediaContentImage, netURLS.GetMainDomain() + netURLS.GET_USER + user.id + netURLS.GET_USER_MEDIA_CONTENTS + "?path=" + url_image, url_image);
         }
 
         if (this.LEN_RESOURCES == 0)
@@ -207,7 +207,7 @@ public class GameController03 : MonoBehaviour {
         GameObject video = InstantiateVideoMediaContentPersistent();
         UserResponse user = this.networkController.GetPersistentObjects().GetUser();
         video.GetComponent<MediaContent>().SetAssociatedPath(url);
-        video.transform.GetChild(0).GetComponent<VideoMediaContent>().ConfigureVideoPlayer(netURLS.GetMainDomain() + netURLS.GET_USER + user.id + "/" + user.auth_token + netURLS.GET_USER_MEDIA_CONTENTS + "?path=" + url);
+        video.transform.GetChild(0).GetComponent<VideoMediaContent>().ConfigureVideoPlayer(netURLS.GetMainDomain() + netURLS.GET_USER + user.id + netURLS.GET_USER_MEDIA_CONTENTS + "?path=" + url);
         this.networkController.GetPersistentObjects().SetMediaContentsVideo(video);
     }
 

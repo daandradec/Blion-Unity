@@ -73,7 +73,7 @@ public class AddContentButton : MonoBehaviour {
                 netController.GetPersistentObjects().SetNewMediaContentsImage(sprite);
 
                 netController.PostRequestImageBytesMethodAlpha(SetMediaContentPathToGameObject, img,
-                    netURLS.GetMainDomain() + netURLS.POST_USER + user.id + "/" + user.auth_token + netURLS.POST_USER_MEDIA_CONTENTS,
+                    netURLS.GetMainDomain() + netURLS.POST_USER + user.id + netURLS.POST_USER_MEDIA_CONTENTS,
                     mediaImage, Path.GetExtension(path).Substring(1));
             }
             else
@@ -82,7 +82,7 @@ public class AddContentButton : MonoBehaviour {
                 gameController.UpdateMediaContentCoordinates(mediaVideo);                
 
                 netController.PostRequestVideoBytesMethodAlpha(SetMediaContentVideoPathToGameObject, img,
-                    netURLS.GetMainDomain() + netURLS.POST_USER + user.id + "/" + user.auth_token + netURLS.POST_USER_MEDIA_CONTENTS,
+                    netURLS.GetMainDomain() + netURLS.POST_USER + user.id + netURLS.POST_USER_MEDIA_CONTENTS,
                     mediaVideo, Path.GetExtension(path).Substring(1));
             }
         }
@@ -135,7 +135,7 @@ public class AddContentButton : MonoBehaviour {
             int index = netController.GetPersistentObjects().GetUser().mediaContentsVideos.Count();
             UserResponse user = netController.GetPersistentObjects().GetUser();
             mediaVideo.GetComponent<MediaContent>().SetAssociatedPathAndIndex(response.message,index);
-            mediaVideo.transform.GetChild(0).GetComponent<VideoMediaContent>().ConfigureVideoPlayer(netURLS.GetMainDomain() + netURLS.GET_USER + user.id + "/" + user.auth_token + netURLS.GET_USER_MEDIA_CONTENTS + "?path=" + response.message);
+            mediaVideo.transform.GetChild(0).GetComponent<VideoMediaContent>().ConfigureVideoPlayer(netURLS.GetMainDomain() + netURLS.GET_USER + user.id + netURLS.GET_USER_MEDIA_CONTENTS + "?path=" + response.message);
             netController.GetPersistentObjects().SetMediaContentsVideo(mediaVideo);
         }
 
