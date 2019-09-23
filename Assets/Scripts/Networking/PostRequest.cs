@@ -1,8 +1,10 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Assets.Scripts.Networking;
 
 public class PostRequest : MonoBehaviour {
 
@@ -19,10 +21,11 @@ public class PostRequest : MonoBehaviour {
             if (www.isNetworkError || www.isHttpError)
             {
                 Debug.Log(www.error);
-                this.gameObject.GetComponent<NetworkController>().LogRequestErrorMessage(www.error);
+                Response response = JsonUtility.FromJson<Response>(www.downloadHandler.text);
+                this.gameObject.GetComponent<NetworkController>().LogRequestErrorMessage(www.error +"\n"+ response.message);
             }
             else
-            {
+            {            
                 Method(www.downloadHandler.text);
             }
         }
