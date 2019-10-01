@@ -41,7 +41,7 @@ public class DestroyContentButton : MonoBehaviour {
 
         string[] keys = { "path"};
         string[] values = { file_path };
-        string url = netURLS.GetMainDomain() + netURLS.POST_USER + user.id + netURLS.POST_USER_DESTROY_MEDIA_CONTENT;
+        string url = netURLS.GetMainDomain() + netURLS.POST_USER + user.id + netURLS.POST_USER_DESTROY_MEDIA_CONTENT + "?token=" + user.token;
 
 
         string[] image_extensions = { ".png", ".jpg", ".jpeg" };
